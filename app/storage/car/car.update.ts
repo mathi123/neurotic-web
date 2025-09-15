@@ -7,8 +7,7 @@ export const dbCarUpdate = async (car: Car): Promise<Car> => {
   const updatedCar = await prisma.car.update({
     where: { id: car.id! },
     data: {
-      ...car,
-      id: undefined,
+      name: car.name,
     },
   });
   return dbCarToDomain(updatedCar);

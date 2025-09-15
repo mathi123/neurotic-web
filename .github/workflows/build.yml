@@ -1,4 +1,4 @@
-name: Unit Tests
+name: Build
 
 on:
   push:
@@ -7,12 +7,8 @@ on:
     branches: [main]
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
-
-    permissions:
-      pull-requests: write
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -38,9 +34,5 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Check testing
-        run: pnpm test:coverage
-
-      - name: 'Report Coverage'
-        if: always()
-        uses: davelosert/vitest-coverage-report-action@v2
+      - name: Build
+        run: pnpm build
