@@ -14,6 +14,13 @@ To get started, you need [pnpm](https://pnpm.io/) and [docker](https://www.docke
 git clone https://github.com/mathi123/neurotic-web.git
 cd neurotic-web
 pnpm i
+pnpm db:start
+pnpm db:migrate
+```
+
+And to start the dev server:
+
+```bash
 pnpm run dev
 ```
 
@@ -88,12 +95,20 @@ Notes:
 - Neon Adapter is used on production and Pg Adapter for local development
 - To check: [connection pooling](https://vercel.com/guides/connection-pooling-with-functions) still relevant with Neon driver?
 
+## Security
+
+### Authentication
+
+[AuthJs](https://authjs.dev/) ...
+[About Edge Compatibility](https://authjs.dev/guides/edge-compatibility)
+
 ## Env Vars
 
 | Variable              | Description                                      |
 | --------------------- | ------------------------------------------------ |
 | DATABASE_URL          | The database url.                                |
 | DATABASE_URL_UNPOOLED | Direct database url, without connection pooling. |
+| AUTH_SECRET           | Used ...                                         |
 
 ## Package Log
 
@@ -108,6 +123,7 @@ This log explains why packages were installed.
 | prisma ORM setup       | prisma, @prisma/client, @prisma/adapter-neon, @prisma/adapter-pg                                       |
 | Unit testing setup     | vitest, vite-tsconfig-paths, jsdom, @vitejs/plugin-react, @testing-library/dom, @testing-library/react |
 | Unit test coverage     | @vitest/coverage-v8                                                                                    |
+| Authentication         | next-auth                                                                                              |
 
 ## Known Issues
 
