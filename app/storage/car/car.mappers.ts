@@ -9,3 +9,9 @@ export const dbCarToDomain = (car: Prisma.CarGetPayload<Prisma.CarDefaultArgs>):
     updatedAt: car.updatedAt,
   };
 };
+
+export const carToDbCar = (car: Car): Prisma.CarCreateInput => {
+  return {
+    name: car.name,
+  };
+};

@@ -136,4 +136,17 @@ describe('API Route - POST /api/cars', () => {
     expect(response.status).toBe(500);
     expect(createCar).toHaveBeenCalledWith(mockCarInput);
   });
+
+  it('returns 500 when request body is invalid JSON', async () => {
+    const request = {
+      json: vi.fn().mockRejectedValueOnce(new Error('Invalid JSON')),
+    } as any;
+
+    const response = await POST(request);
+    const json = await response.json();
+
+    expect(response.status).toBe(500);
+    expect(json).toEqual({});
+    expect(createCar).not.toHaveBeenCalled();
+  });
 });
