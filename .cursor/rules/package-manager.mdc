@@ -1,0 +1,7 @@
+---
+description: Package Manager
+globs:
+alwaysApply: true
+---
+
+Always use pnpm as package manager and use pnmx instead of npx, since it will use the correct node version.

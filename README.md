@@ -21,7 +21,7 @@ pnpm db:migrate
 And to start the dev server:
 
 ```bash
-pnpm run dev
+pnpm dev
 ```
 
 # Technologies
@@ -74,9 +74,9 @@ Vitest is used for running unit tests.
 
 ```bash
 
-pnpm run test
+pnpm test
 # Or with code coverage
-pnpm run test:coverage
+pnpm test:coverage
 
 ```
 
@@ -87,7 +87,7 @@ pnpm run test:coverage
 Prisma is used as an ORM. Modify the schema.prisma file, and add a migration as follows:
 
 ```bash
-pnpm run db:migrate
+pnpm db:migrate
 ```
 
 Notes:
@@ -108,7 +108,7 @@ Notes:
 | --------------------- | ------------------------------------------------ |
 | DATABASE_URL          | The database url.                                |
 | DATABASE_URL_UNPOOLED | Direct database url, without connection pooling. |
-| AUTH_SECRET           | Used ...                                         |
+| AUTH_SECRET           | Used by AuthJS                                   |
 
 ## Package Log
 
@@ -123,7 +123,7 @@ This log explains why packages were installed.
 | prisma ORM setup       | prisma, @prisma/client, @prisma/adapter-neon, @prisma/adapter-pg                                       |
 | Unit testing setup     | vitest, vite-tsconfig-paths, jsdom, @vitejs/plugin-react, @testing-library/dom, @testing-library/react |
 | Unit test coverage     | @vitest/coverage-v8                                                                                    |
-| Authentication         | next-auth                                                                                              |
+| Authentication         | next-auth, @auth/prisma-adapter, bcrypt                                                                |
 
 ## Known Issues
 
