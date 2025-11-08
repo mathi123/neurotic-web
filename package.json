@@ -1,8 +1,6 @@
 {
-  "name": "share",
+  "name": "neurotic-web",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
   "scripts": {
     "predev": "pnpm db:start",
     "dev": "next dev --turbopack",
@@ -30,11 +28,14 @@
     "@prisma/adapter-neon": "^6.16.0",
     "@prisma/adapter-pg": "^6.16.0",
     "@prisma/client": "^6.16.0",
+    "@tailwindcss/postcss": "^4.1.13",
     "bcrypt": "^6.0.0",
     "next": "^15.5.2",
     "next-auth": "5.0.0-beta.29",
+    "postcss": "^8.5.6",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
+    "tailwindcss": "^4.1.13",
     "zod": "^4.1.5"
   },
   "devDependencies": {
@@ -54,6 +55,7 @@
     "husky": "^9.1.7",
     "jsdom": "^26.1.0",
     "prettier": "^3.6.2",
+    "prettier-plugin-tailwindcss": "^0.7.1",
     "prisma": "^6.16.0",
     "typescript": "5.9.2",
     "vite-tsconfig-paths": "^5.1.4",

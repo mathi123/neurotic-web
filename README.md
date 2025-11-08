@@ -60,7 +60,7 @@ ESLint was set up to use 3 rule sets:
 
 ## Formatting
 
-Prettier is used to automatically format code.
+Prettier is used to automatically format code. The .prettierrc configures prettier and has a module to automatically format [tailwind css](https://github.com/tailwindlabs/prettier-plugin-tailwindcss).
 
 ## Node Version
 
@@ -110,6 +110,12 @@ Notes:
 | DATABASE_URL_UNPOOLED | Direct database url, without connection pooling. |
 | AUTH_SECRET           | Used by AuthJS                                   |
 
+# Frontend
+
+## Tailwind
+
+Tailwind was installed using the [manual instructions](https://tailwindcss.com/docs/installation/using-postcss) with postcss. You can use the [Tailwind CSS IntelliSense](https://open-vsx.org/extension/bradlc/vscode-tailwindcss) plugin for VSCode.
+
 ## Package Log
 
 This log explains why packages were installed.
@@ -124,6 +130,7 @@ This log explains why packages were installed.
 | Unit testing setup     | vitest, vite-tsconfig-paths, jsdom, @vitejs/plugin-react, @testing-library/dom, @testing-library/react |
 | Unit test coverage     | @vitest/coverage-v8                                                                                    |
 | Authentication         | next-auth, @auth/prisma-adapter, bcrypt                                                                |
+| Tailwind setup         | tailwindcss, @tailwindcss/postcss, postcss, prettier-plugin-tailwindcss                                |
 
 ## Known Issues
 
