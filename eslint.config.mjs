@@ -33,6 +33,12 @@ const eslintConfig = [
           '@typescript-eslint/no-explicit-any': 'off',
         },
       },
+      {
+        files: ['app/app/components/ui/**/*'],
+        rules: {
+          'max-len': 'off',
+        },
+      },
     ],
   }),
 ];
