@@ -28,6 +28,7 @@
     "@prisma/adapter-neon": "^6.16.0",
     "@prisma/adapter-pg": "^6.16.0",
     "@prisma/client": "^6.16.0",
+    "@radix-ui/react-slot": "^1.2.4",
     "@tailwindcss/postcss": "^4.1.13",
     "bcrypt": "^6.0.0",
     "class-variance-authority": "^0.7.1",
