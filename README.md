@@ -120,6 +120,18 @@ Tailwind was installed using the [manual instructions](https://tailwindcss.com/d
 
 ShadCn is used to build a compent library in this codebase. The [manual instructions](https://ui.shadcn.com/docs/installation/manual) were also followed to install this. The theming is configured to use a [dark mode](https://ui.shadcn.com/docs/dark-mode/next).
 
+## Documentation Guidelines
+
+### URL Validation
+
+All external URLs referenced in the README.md are automatically validated in CI/CD. The validation ensures that all links are accessible and will fail the CI/CD pipeline if any URLs are broken or inaccessible.
+
+To validate URLs locally:
+
+```bash
+pnpm run docs
+```
+
 ## Package Log
 
 This log explains why packages were installed.
