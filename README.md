@@ -118,25 +118,27 @@ Tailwind was installed using the [manual instructions](https://tailwindcss.com/d
 
 ### ShadCN
 
-ShadCn is used to build a compent library in this codebase. The [manual instructions](https://ui.shadcn.com/docs/installation/manual) were also followed to install this.
+ShadCn is used to build a compent library in this codebase. The [manual instructions](https://ui.shadcn.com/docs/installation/manual) were also followed to install this. The theming is configured to use a [dark mode](https://ui.shadcn.com/docs/dark-mode/next).
 
 ## Package Log
 
 This log explains why packages were installed.
 
-| Reason                 | Package(s)                                                                                             |
-| ---------------------- | ------------------------------------------------------------------------------------------------------ |
-| Next.js setup          | next@latest, react@latest, react-dom@latest                                                            |
-| commit message linting | @commitlint/config-conventional, @commitlint/cli, husky                                                |
-| ESLint via Next.js     | eslint, eslint-config-next, eslint-config-prettier, @eslint/eslintrc                                   |
-| validating models      | zod                                                                                                    |
-| prisma ORM setup       | prisma, @prisma/client, @prisma/adapter-neon, @prisma/adapter-pg                                       |
-| Unit testing setup     | vitest, vite-tsconfig-paths, jsdom, @vitejs/plugin-react, @testing-library/dom, @testing-library/react |
-| Unit test coverage     | @vitest/coverage-v8                                                                                    |
-| Authentication         | next-auth, @auth/prisma-adapter, bcrypt                                                                |
-| Tailwind setup         | tailwindcss, @tailwindcss/postcss, postcss, prettier-plugin-tailwindcss                                |
-| ShadCn setup           | class-variance-authority, clsx, tailwind-merge, lucide-react, tw-animate-css                           |
-| Button Component       | @radix-ui/react-slot                                                                                   |
+| Reason                  | Package(s)                                                                                             |
+| ----------------------- | ------------------------------------------------------------------------------------------------------ |
+| Next.js setup           | next@latest, react@latest, react-dom@latest                                                            |
+| commit message linting  | @commitlint/config-conventional, @commitlint/cli, husky                                                |
+| ESLint via Next.js      | eslint, eslint-config-next, eslint-config-prettier, @eslint/eslintrc                                   |
+| validating models       | zod                                                                                                    |
+| prisma ORM setup        | prisma, @prisma/client, @prisma/adapter-neon, @prisma/adapter-pg                                       |
+| Unit testing setup      | vitest, vite-tsconfig-paths, jsdom, @vitejs/plugin-react, @testing-library/dom, @testing-library/react |
+| Unit test coverage      | @vitest/coverage-v8                                                                                    |
+| Authentication          | next-auth, @auth/prisma-adapter, bcrypt                                                                |
+| Tailwind setup          | tailwindcss, @tailwindcss/postcss, postcss, prettier-plugin-tailwindcss                                |
+| ShadCn setup            | class-variance-authority, clsx, tailwind-merge, lucide-react, tw-animate-css                           |
+| Button Component        | @radix-ui/react-slot                                                                                   |
+| Dropdown Menu Component | @radix-ui/react-dropdown-menu                                                                          |
+| Dark mode               | next-themes                                                                                            |
 
 ## Known Issues
 
