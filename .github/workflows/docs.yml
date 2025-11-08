@@ -1,4 +1,4 @@
-name: Validate Docs
+name: Docs
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  validate-docs:
+  validate:
     runs-on: ubuntu-latest
 
     steps:
