@@ -60,7 +60,7 @@ ESLint was set up to use 3 rule sets:
 
 ## Formatting
 
-Prettier is used to automatically format code. The .prettierrc configures prettier and has a module to automatically format [tailwind css](https://github.com/tailwindlabs/prettier-plugin-tailwindcss).
+Prettier is used to automatically format code. The .prettierrc configures prettier and has a module to automatically format [tailwind css](https://github.com/tailwindlabs/prettier-plugin-tailwindcss). The settings.json file has a small section (files.associations) that associates css files with this plugin, such that syntax highlighting works correctly.
 
 ## Node Version
 
@@ -110,11 +110,15 @@ Notes:
 | DATABASE_URL_UNPOOLED | Direct database url, without connection pooling. |
 | AUTH_SECRET           | Used by AuthJS                                   |
 
-# Frontend
+## Frontend
 
-## Tailwind
+### Tailwind
 
 Tailwind was installed using the [manual instructions](https://tailwindcss.com/docs/installation/using-postcss) with postcss. You can use the [Tailwind CSS IntelliSense](https://open-vsx.org/extension/bradlc/vscode-tailwindcss) plugin for VSCode.
+
+### ShadCN
+
+ShadCn is used to build a compent library in this codebase. The [manual instructions](https://ui.shadcn.com/docs/installation/manual) were also followed to install this.
 
 ## Package Log
 
@@ -131,6 +135,8 @@ This log explains why packages were installed.
 | Unit test coverage     | @vitest/coverage-v8                                                                                    |
 | Authentication         | next-auth, @auth/prisma-adapter, bcrypt                                                                |
 | Tailwind setup         | tailwindcss, @tailwindcss/postcss, postcss, prettier-plugin-tailwindcss                                |
+| ShadCn setup           | class-variance-authority, clsx, tailwind-merge, lucide-react, tw-animate-css                           |
+| Button Component       | @radix-ui/react-slot                                                                                   |
 
 ## Known Issues
 
