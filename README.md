@@ -97,20 +97,12 @@ Notes:
 - Neon Adapter is used on production and Pg Adapter for local development
 - To check: [connection pooling](https://vercel.com/guides/connection-pooling-with-functions) still relevant with Neon driver?
 
-## Security
-
-### Authentication
-
-[AuthJs](https://authjs.dev/) ...
-[About Edge Compatibility](https://authjs.dev/guides/edge-compatibility)
-
 ## Env Vars
 
 | Variable              | Description                                      |
 | --------------------- | ------------------------------------------------ |
 | DATABASE_URL          | The database url.                                |
 | DATABASE_URL_UNPOOLED | Direct database url, without connection pooling. |
-| AUTH_SECRET           | Used by AuthJS                                   |
 
 ## Frontend
 
@@ -147,12 +139,13 @@ This log explains why packages were installed.
 | prisma ORM setup        | prisma, @prisma/client, @prisma/adapter-neon, @prisma/adapter-pg                                       |
 | Unit testing setup      | vitest, vite-tsconfig-paths, jsdom, @vitejs/plugin-react, @testing-library/dom, @testing-library/react |
 | Unit test coverage      | @vitest/coverage-v8                                                                                    |
-| Authentication          | next-auth, @auth/prisma-adapter, bcrypt                                                                |
 | Tailwind setup          | tailwindcss, @tailwindcss/postcss, postcss, prettier-plugin-tailwindcss                                |
 | ShadCn setup            | class-variance-authority, clsx, tailwind-merge, lucide-react, tw-animate-css                           |
 | Button Component        | @radix-ui/react-slot                                                                                   |
 | Dropdown Menu Component | @radix-ui/react-dropdown-menu                                                                          |
 | Dark mode               | next-themes                                                                                            |
+| Label Component         | @radix-ui/react-label                                                                                  |
+| Separator Component     | @radix-ui/react-separator                                                                              |
 
 ## Known Issues
 
