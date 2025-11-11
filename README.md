@@ -153,6 +153,8 @@ This log explains why packages were installed.
 | Button Component        | @radix-ui/react-slot                                                                                   |
 | Dropdown Menu Component | @radix-ui/react-dropdown-menu                                                                          |
 | Dark mode               | next-themes                                                                                            |
+| Label Component         | @radix-ui/react-label                                                                                  |
+| Separator Component     | @radix-ui/react-separator                                                                              |
 
 ## Known Issues
 
