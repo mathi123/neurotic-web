@@ -101,7 +101,7 @@ Notes:
 
 ### Authentication
 
-Better-auth is used for authentication. It supports email/password authentication and GitHub OAuth.
+Better-auth is used for authentication. It supports email/password authentication and GitHub OAuth. Another open source package [better-auth-ui](https://better-auth-ui.com/) is used, to serve default pages for login, sign-up, password reset [etc](https://better-auth-ui.com/integrations/next-js#auth-pages). In case this package is not maintained anymore, the views from it can just be copied over.
 
 #### Configuration
 
@@ -188,6 +188,8 @@ This log explains why packages were installed.
 | Label Component         | @radix-ui/react-label                                                                                  |
 | Separator Component     | @radix-ui/react-separator                                                                              |
 | Auth setup              | better-auth                                                                                            |
+| Auth UI Setup           | @daveyplate/better-auth-ui                                                                             |
+| Toastr Component        | sonner                                                                                                 |
 
 ## Known Issues
 
