@@ -97,12 +97,53 @@ Notes:
 - Neon Adapter is used on production and Pg Adapter for local development
 - To check: [connection pooling](https://vercel.com/guides/connection-pooling-with-functions) still relevant with Neon driver?
 
+## Security
+
+### Authentication
+
+Better-auth is used for authentication. It supports email/password authentication and GitHub OAuth.
+
+#### Configuration
+
+The auth server is configured in `app/auth.ts`:
+
+- **Database**: Uses Prisma adapter with PostgreSQL
+- **Email/Password**: Enabled by default
+- **Social Providers**: GitHub OAuth (requires `GITHUB_CLIENT_ID` and `GITHUB_CLIENT_SECRET`)
+
+#### API Routes
+
+Auth API routes are handled at `/api/auth/[...all]` via the Next.js route handler in `app/api/auth/[...all]/route.ts`.
+
+#### Client Usage
+
+The auth client for React components is available via `app/app/auth.ts`:
+
+```typescript
+import { authClient } from '@/app/auth';
+
+// Use authClient methods in your components
+```
+
+#### Database Schema
+
+The authentication system uses the following Prisma models:
+
+- `User`: User accounts
+- `Session`: Active user sessions
+- `Account`: OAuth provider accounts
+- `Verification`: Email verification tokens
+
+These models are automatically created when running the auth migration.
+
 ## Env Vars
 
-| Variable              | Description                                      |
-| --------------------- | ------------------------------------------------ |
-| DATABASE_URL          | The database url.                                |
-| DATABASE_URL_UNPOOLED | Direct database url, without connection pooling. |
+| Variable              | Description                                            |
+| --------------------- | ------------------------------------------------------ |
+| DATABASE_URL          | The database url.                                      |
+| DATABASE_URL_UNPOOLED | Direct database url, without connection pooling.       |
+| GITHUB_CLIENT_ID      | GitHub OAuth client ID (required for GitHub auth).     |
+| GITHUB_CLIENT_SECRET  | GitHub OAuth client secret (required for GitHub auth). |
 
 ## Frontend
 
@@ -146,6 +187,7 @@ This log explains why packages were installed.
 | Dark mode               | next-themes                                                                                            |
 | Label Component         | @radix-ui/react-label                                                                                  |
 | Separator Component     | @radix-ui/react-separator                                                                              |
+| Auth setup              | better-auth                                                                                            |
 
 ## Known Issues
 
