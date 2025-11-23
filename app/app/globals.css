@@ -1,6 +1,9 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
+/* Used for default auth pages: */
+@import '@daveyplate/better-auth-ui/css';
+
 @custom-variant dark (&:is(.dark *));
 
 :root {
