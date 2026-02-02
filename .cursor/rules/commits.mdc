@@ -1,0 +1,33 @@
+---
+description: Commit message conventions
+alwaysApply: true
+---
+
+# Commit Messages
+
+Follow [Conventional Commits](https://www.conventionalcommits.org/).
+
+## Format
+
+```
+<type>: <description>
+```
+
+## Types
+
+- `feat:` — New feature
+- `fix:` — Bug fix
+- `refactor:` — Code change that neither fixes a bug nor adds a feature
+- `docs:` — Documentation only
+- `test:` — Adding or updating tests
+- `chore:` — Maintenance (dependencies, config, etc.)
+
+## Examples
+
+```
+feat: add user authentication
+fix: prevent crash on empty input
+refactor: extract validation logic to shared util
+test: add missing tests for car search
+chore: update dependencies
+```

@@ -1,7 +1,16 @@
 ---
-description: Package Manager
-globs:
+description: Package manager and environment setup
 alwaysApply: true
 ---
 
-Always use pnpm as package manager and use pnmx instead of npx, since it will use the correct node version.
+# Package Manager
+
+Use pnpm (defined in `package.json`). Use pnpx instead of npx.
+
+```bash
+# Install dependencies
+pnpm install
+
+# Run a package binary
+pnpx <command>
+```

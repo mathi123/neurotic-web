@@ -1,7 +1,122 @@
 ---
-description: Unit tests
-globs:
+description: Unit testing conventions and patterns
 alwaysApply: true
 ---
 
-Be sure to keep unit tests simple, and only test the function in scope, not the underlying logic.
+# Unit Testing
+
+Tests live in `tests/` mirroring the `app/` structure. Use Vitest.
+
+## Test File Structure
+
+```
+tests/
+├── actions/{entity}/*.spec.ts
+├── api/{entity}/*.spec.ts
+├── domain/*.spec.ts
+├── storage/{entity}/*.spec.ts
+└── builders/{entity}.builder.ts
+```
+
+## Builders
+
+Use builders from `tests/builders/` for domain model instances:
+
+```typescript
+import { car } from '../../builders/car.builder';
+
+const testCar = car({ name: 'Tesla' }); // Override only what you need
+```
+
+When adding an entity, create `tests/builders/{entity}.builder.ts`:
+
+```typescript
+export const example = (data: Partial<Example>) => {
+  return {
+    id: data.id || '550e8400-e29b-41d4-a716-446655440000',
+    name: data.name || 'Default Name',
+    createdAt: data.createdAt || new Date(),
+    updatedAt: data.updatedAt || new Date(),
+  };
+};
+```
+
+## Mocking Pattern
+
+Mock dependencies BEFORE importing the module under test:
+
+```typescript
+// 1. Mocks first
+vi.mock('@/storage/car/car.create', () => ({
+  dbCarCreate: vi.fn(),
+}));
+
+// 2. Then imports
+import { createCar } from '@/actions/car/create';
+import { dbCarCreate } from '@/storage/car/car.create';
+```
+
+Always clear mocks:
+
+```typescript
+afterEach(() => {
+  vi.clearAllMocks();
+});
+```
+
+## Layer-Specific Testing
+
+### Domain (`tests/domain/`)
+Test Zod schemas directly. No mocking needed.
+
+```typescript
+it('fails when name is empty', () => {
+  const result = carSchema.safeParse({ id: 'x', name: '' });
+  expect(result.success).toBe(false);
+});
+```
+
+### Storage (`tests/storage/`)
+Mock Prisma client and mappers. Verify correct calls.
+
+```typescript
+vi.mock('@/storage/utils', () => ({ getPrismaClient: vi.fn() }));
+vi.mock('@/storage/car/car.mappers', () => ({
+  carToDbCar: vi.fn(),
+  dbCarToDomain: vi.fn(),
+}));
+```
+
+### Actions (`tests/actions/`)
+Mock storage layer. Test business logic only.
+
+```typescript
+vi.mock('@/storage/car/car.create', () => ({ dbCarCreate: vi.fn() }));
+```
+
+### API (`tests/api/`)
+Mock actions. Test HTTP status codes and response shapes.
+
+```typescript
+vi.mock('@/actions/car/create', () => ({ createCar: vi.fn() }));
+
+it('returns 201 when valid', async () => {
+  vi.mocked(createCar).mockResolvedValueOnce(mockCar);
+  const response = await POST(request);
+  expect(response.status).toBe(201);
+});
+```
+
+## Running Tests
+
+```bash
+pnpm vitest --no-watch
+```
+
+Do not run `pnpm test` directly — it enters watch mode and hangs.
+
+## Key Principles
+
+- Test only the function in scope, not underlying logic
+- Each layer mocks its direct dependencies
+- Use `vi.mocked()` for type-safe mock configuration
