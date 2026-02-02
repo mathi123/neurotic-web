@@ -193,6 +193,11 @@ This log explains why packages were installed.
 | Auth setup              | better-auth                                                                                            |
 | Auth UI Setup           | @daveyplate/better-auth-ui                                                                             |
 | Toastr Component        | sonner                                                                                                 |
+| ShadCN Table/Select     | radix-ui                                                                                               |
+| Data Table              | @tanstack/react-table                                                                                  |
+| Sidebar Component       | (shadcn generated - uses radix-ui)                                                                     |
+| Navigation Menu/Avatar  | (shadcn generated - uses radix-ui)                                                                     |
+| Faceted Filter          | cmdk (shadcn command component)                                                                        |
 
 ## Known Issues
 

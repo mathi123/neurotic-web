@@ -51,6 +51,14 @@ export const notFoundResponse = (message: string = 'Resource not found'): Respon
   return Response.json({ code: 'not_found', errors: [{ message }] }, { status: statusCodes.NOT_FOUND });
 };
 
+export const unauthorizedResponse = (message: string = 'Authentication required'): Response => {
+  return Response.json({ code: 'unauthorized', errors: [{ message }] }, { status: statusCodes.UNAUTHORIZED });
+};
+
+export const forbiddenResponse = (message: string = 'Access denied'): Response => {
+  return Response.json({ code: 'forbidden', errors: [{ message }] }, { status: statusCodes.FORBIDDEN });
+};
+
 const uuidSchema = z.uuid();
 
 export const getIdFromRoute = async (route: IdRouteParams): Promise<string> => {
