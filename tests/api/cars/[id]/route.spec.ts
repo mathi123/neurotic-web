@@ -58,6 +58,20 @@ describe('API Route - GET /api/cars/[id]', () => {
 
     await expect(GET(request, route)).rejects.toThrow();
   });
+
+  it('returns 404 when car is not found (Prisma error)', async () => {
+    vi.mocked(readCar).mockRejectedValueOnce({ code: 'P2025' });
+
+    const request = {} as any;
+    const route = {
+      params: Promise.resolve({ id: validId }),
+    };
+
+    const response = await GET(request, route);
+
+    expect(response.status).toBe(404);
+    expect(readCar).toHaveBeenCalledWith(validId);
+  });
 });
 
 describe('API Route - PUT /api/cars/[id]', () => {
@@ -104,7 +118,7 @@ describe('API Route - PUT /api/cars/[id]', () => {
     const json = await response.json();
 
     expect(response.status).toBe(400);
-    expect(json.code).toBe('id mismatch');
+    expect(json.code).toBe('id_mismatch');
     expect(json.errors).toEqual([{ message: 'id in body does not match id in path' }]);
     expect(updateCar).not.toHaveBeenCalled();
   });
@@ -198,15 +212,29 @@ describe('API Route - DELETE /api/cars/[id]', () => {
     await expect(DELETE(request, route)).rejects.toThrow();
   });
 
-  it('throws error when deleteCar throws an error', async () => {
-    vi.mocked(deleteCar).mockRejectedValueOnce(new Error('Car not found'));
+  it('returns 404 when car is not found (Prisma error)', async () => {
+    vi.mocked(deleteCar).mockRejectedValueOnce({ code: 'P2025' });
 
     const request = {} as any;
     const route = {
       params: Promise.resolve({ id: validId }),
     };
 
-    await expect(DELETE(request, route)).rejects.toThrow('Car not found');
+    const response = await DELETE(request, route);
+
+    expect(response.status).toBe(404);
+    expect(deleteCar).toHaveBeenCalledWith(validId);
+  });
+
+  it('rethrows unexpected errors from deleteCar', async () => {
+    vi.mocked(deleteCar).mockRejectedValueOnce(new Error('Database connection failed'));
+
+    const request = {} as any;
+    const route = {
+      params: Promise.resolve({ id: validId }),
+    };
+
+    await expect(DELETE(request, route)).rejects.toThrow('Database connection failed');
     expect(deleteCar).toHaveBeenCalledWith(validId);
   });
 });

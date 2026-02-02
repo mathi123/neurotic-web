@@ -15,3 +15,9 @@ export const carToDbCar = (car: Car): Prisma.CarCreateInput => {
     name: car.name,
   };
 };
+
+export const carToDbCarUpdate = (car: Car): Prisma.CarUpdateInput => {
+  return {
+    name: car.name,
+  };
+};

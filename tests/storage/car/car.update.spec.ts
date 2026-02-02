@@ -8,6 +8,7 @@ vi.mock('@/storage/utils', () => ({
 // Mock the car mappers
 vi.mock('@/storage/car/car.mappers', () => ({
   dbCarToDomain: vi.fn(),
+  carToDbCarUpdate: vi.fn((car) => ({ name: car.name })),
 }));
 
 import { dbCarUpdate } from '@/storage/car/car.update';
