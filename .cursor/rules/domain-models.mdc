@@ -1,10 +1,61 @@
 ---
-description: Domain models in unit tests
-globs:
-alwaysApply: true
+description: Domain model definitions and patterns
+globs: app/domain/**/*.ts
+alwaysApply: false
 ---
 
-When writing tests for actions (domain models), the code will probably require instances of domain models to test with. To make these tests maintainable, there are builder functions under /tests/builders.
+# Domain Models
 
-- Use the builder functions for building instances of domain models
-- Provide the properties you want to override to the builder function
+Domain models in `app/domain/` are shared between backend and frontend.
+
+## Structure
+
+Each entity needs:
+- `{entity}.model.ts` — Zod schema + TypeScript type
+- `{entity}.filter.ts` — Search/pagination filter schema
+
+## Model Pattern
+
+```typescript
+import * as z from 'zod';
+
+export const exampleSchema = z.object({
+  id: z.uuid().nullable(),
+  name: z.string().min(1).max(100),
+  createdAt: z.date().nullable().default(null),
+  updatedAt: z.date().nullable().default(null),
+});
+
+export type Example = z.infer<typeof exampleSchema>;
+```
+
+## Filter Pattern
+
+```typescript
+import z from 'zod';
+import { DefaultTake, MaxTake, SortOrder } from './utils';
+
+export enum ExampleSortColumns {
+  NAME = 'name',
+  CREATED_AT = 'createdAt',
+  UPDATED_AT = 'updatedAt',
+}
+
+export const exampleFilterSchema = z
+  .object({
+    query: z.string().nullable().default(null),
+    skip: z.coerce.number().int().min(0).default(0),
+    take: z.coerce.number().int().min(0).max(MaxTake).default(DefaultTake),
+    sortBy: z.enum(Object.values(ExampleSortColumns)).default(ExampleSortColumns.UPDATED_AT),
+    sortOrder: z.enum(SortOrder).default(SortOrder.DESC),
+  })
+  .strict();
+
+export type ExampleFilter = z.infer<typeof exampleFilterSchema>;
+```
+
+## Key Points
+
+- Use `z.uuid().nullable()` for IDs (null before creation)
+- Use `.strict()` on filter schemas to reject unknown params
+- Export both the schema and inferred type

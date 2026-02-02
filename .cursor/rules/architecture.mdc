@@ -1,0 +1,91 @@
+---
+description: Domain-driven architecture guidelines for contributing to the codebase
+alwaysApply: true
+---
+
+# Architecture Overview
+
+This codebase follows domain-driven design. All application code lives in `app/`.
+
+## Folder Structure
+
+```
+app/
+├── domain/      # Domain models (shared backend + frontend)
+├── storage/     # Repository pattern (Prisma ORM)
+├── actions/     # Business logic
+├── api/         # REST API endpoints
+└── app/         # Frontend (Next.js client)
+```
+
+## Adding a New Entity
+
+Follow this order:
+
+1. **Domain** (`app/domain/`)
+   - Create `{entity}.model.ts` with Zod schema and TypeScript type
+   - Create `{entity}.filter.ts` for search/pagination filters
+
+2. **Storage** (`app/storage/`)
+   - Add model to `schema.prisma`
+   - Create `{entity}/` folder with mappers and CRUD operations
+   - **Do not run migrations automatically** — prompt user to review schema changes first
+   - Migration command: `pnpm prisma migrate dev --name {migration_name}`
+
+3. **Actions** (`app/actions/`)
+   - Create `{entity}/` folder with business logic functions
+   - Actions use storage repos, never Prisma directly
+
+4. **API** (`app/api/`)
+   - Create REST endpoints following existing patterns
+   - Always validate input with Zod schemas
+   - Use `app/api/utils.ts` helpers for responses
+
+5. **Frontend** (`app/app/`)
+   - Feature code goes in `app/app/{entity}/`
+   - Use Tailwind + ShadCN UI components
+
+## Key Patterns
+
+### Domain Models
+
+```typescript
+// app/domain/example.model.ts
+import * as z from 'zod';
+
+export const exampleSchema = z.object({
+  id: z.uuid().nullable(),
+  name: z.string().min(1).max(100),
+  createdAt: z.date().nullable().default(null),
+  updatedAt: z.date().nullable().default(null),
+});
+
+export type Example = z.infer<typeof exampleSchema>;
+```
+
+### Storage Mappers
+
+```typescript
+// app/storage/example/example.mappers.ts
+export const dbExampleToDomain = (db: Prisma.ExampleGetPayload<...>): Example => ({ ... });
+export const exampleToDbExample = (example: Example): Prisma.ExampleCreateInput => ({ ... });
+```
+
+### Actions
+
+```typescript
+// app/actions/example/create.ts
+import { exampleSchema } from '@/domain/example.model';
+import { dbExampleCreate } from '@/storage/example/example.create';
+
+export const createExample = async (example: Example): Promise<Example> => {
+  const validated = exampleSchema.parse(example);
+  return dbExampleCreate(validated);
+};
+```
+
+## After Writing Code
+
+```bash
+pnpm run lint:fix && pnpm run format:fix
+```
