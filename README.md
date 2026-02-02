@@ -13,6 +13,7 @@ To get started, you need [pnpm](https://pnpm.io/) and [docker](https://www.docke
 ```bash
 git clone https://github.com/mathi123/neurotic-web.git
 cd neurotic-web
+cp .env.example .env
 pnpm i
 pnpm db:start
 pnpm db:migrate
@@ -137,6 +138,8 @@ The authentication system uses the following Prisma models:
 These models are automatically created when running the auth migration.
 
 ## Env Vars
+
+Copy `.env.example` to `.env` and fill in your values. The app loads `.env` locally; `.env` is gitignored and not used in CI/CD.
 
 | Variable              | Description                                            |
 | --------------------- | ------------------------------------------------------ |
