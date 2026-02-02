@@ -1,20 +1,15 @@
 'use client';
 
-import '@/app/globals.css';
 import { Providers } from './providers/providers';
 import { Toaster } from './components/ui/sonner';
-import { ThemeToggle } from './components/theme-toggle';
+import { Header } from './components/header';
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body>
-        <Providers>
-          <ThemeToggle />
-          {children}
-          <Toaster />
-        </Providers>
-      </body>
-    </html>
+    <Providers>
+      <Header />
+      {children}
+      <Toaster />
+    </Providers>
   );
 }

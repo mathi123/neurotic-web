@@ -17,7 +17,7 @@
     "db:start": "docker compose up -d",
     "db:stop": "docker compose down",
     "db:reset": "docker compose down --volumes --remove-orphans && pnpm db:start && pnpm db:migrate",
-    "db:migrate": "env $(cat .env.local | xargs) prisma migrate dev",
+    "db:migrate": "env $(cat .env | xargs) prisma migrate dev",
     "docs": "node scripts/validate-docs.mjs"
   },
   "keywords": [],
