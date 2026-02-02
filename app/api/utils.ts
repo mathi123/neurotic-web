@@ -10,7 +10,7 @@ export class NotFoundError extends Error {
 }
 
 export const isPrismaNotFoundError = (error: unknown): boolean => {
-  return error !== null && typeof error === 'object' && 'code' in error && (error.code === 'P2025' || error.code === 'P2016');
+  return error !== null && typeof error === 'object' && 'code' in error && error.code === 'P2025';
 };
 
 export const tryCreateResource = async <T>(createResource: (resource: T) => Promise<T>, resource: T): Promise<Response> => {

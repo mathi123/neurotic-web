@@ -20,9 +20,9 @@ describe('API Utils', () => {
       expect(isPrismaNotFoundError(error)).toBe(true);
     });
 
-    it('returns true for P2016 error code', () => {
+    it('returns false for P2016 error code (query interpretation error, not record not found)', () => {
       const error = { code: 'P2016' };
-      expect(isPrismaNotFoundError(error)).toBe(true);
+      expect(isPrismaNotFoundError(error)).toBe(false);
     });
 
     it('returns false for other error codes', () => {
