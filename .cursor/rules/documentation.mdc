@@ -1,0 +1,29 @@
+---
+description: Functional documentation guidelines
+alwaysApply: true
+---
+
+# Documentation
+
+Functional documentation lives in `docs/`. Keep it current when modifying features.
+
+## Structure
+
+```
+docs/
+└── {feature}.md
+```
+
+## Guidelines
+
+- Write for developers who need to understand or extend the feature
+- Include: purpose, functional usage and examples
+- Keep concise — link to external docs for library details
+- Update docs when changing related code
+
+## When to Document
+
+Document a feature when it:
+- Has configuration or environment variables
+- Integrates external services or libraries
+- Has non-obvious behavior or conventions

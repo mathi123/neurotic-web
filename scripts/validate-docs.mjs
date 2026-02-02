@@ -1,11 +1,12 @@
 #!/usr/bin/env node
 
-import { readFileSync } from 'fs';
+import { existsSync, readFileSync, readdirSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+const rootDir = join(__dirname, '..');
 
 // URL regex pattern - matches http://, https://, and git URLs
 const URL_REGEX = /(https?:\/\/[^\s\)]+|git@[^\s\)]+|https?:\/\/[^\s\)]+)/g;
@@ -83,28 +84,65 @@ async function checkUrl(url) {
   }
 }
 
+function getMarkdownFiles() {
+  const files = [];
+
+  // Add README.md
+  const readmePath = join(rootDir, 'README.md');
+  if (existsSync(readmePath)) {
+    files.push(readmePath);
+  }
+
+  // Add all .md files from docs/
+  const docsDir = join(rootDir, 'docs');
+  if (existsSync(docsDir)) {
+    const docsFiles = readdirSync(docsDir).filter((f) => f.endsWith('.md'));
+    files.push(...docsFiles.map((f) => join(docsDir, f)));
+  }
+
+  return files;
+}
+
 async function main() {
-  const readmePath = join(__dirname, '..', 'README.md');
-  const readmeContent = readFileSync(readmePath, 'utf-8');
+  const files = getMarkdownFiles();
 
-  const urls = extractUrls(readmeContent);
-
-  if (urls.length === 0) {
-    console.log('No URLs found in README.md');
+  if (files.length === 0) {
+    console.log('No markdown files found');
     process.exit(0);
   }
 
-  console.log(`Found ${urls.length} URL(s) in README.md:\n`);
+  const allUrls = new Map(); // url -> [files where it appears]
 
-  const results = await Promise.all(urls.map(checkUrl));
+  for (const file of files) {
+    const content = readFileSync(file, 'utf-8');
+    const urls = extractUrls(content);
+    const fileName = file.replace(rootDir + '/', '');
+
+    for (const url of urls) {
+      if (!allUrls.has(url)) {
+        allUrls.set(url, []);
+      }
+      allUrls.get(url).push(fileName);
+    }
+  }
+
+  if (allUrls.size === 0) {
+    console.log('No URLs found in documentation');
+    process.exit(0);
+  }
+
+  console.log(`Found ${allUrls.size} unique URL(s) across ${files.length} file(s):\n`);
+
+  const results = await Promise.all([...allUrls.keys()].map(checkUrl));
 
   let hasErrors = false;
 
   for (const result of results) {
+    const filesWithUrl = allUrls.get(result.url).join(', ');
     if (result.ok) {
-      console.log(`✓ ${result.url} - Status: ${result.status}`);
+      console.log(`✓ ${result.url} - Status: ${result.status} (${filesWithUrl})`);
     } else {
-      console.error(`✗ ${result.url} - Status: ${result.status}${result.error ? ` - ${result.error}` : ''}`);
+      console.error(`✗ ${result.url} - Status: ${result.status}${result.error ? ` - ${result.error}` : ''} (${filesWithUrl})`);
       hasErrors = true;
     }
   }
