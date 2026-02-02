@@ -46,5 +46,18 @@ describe('updateCar', () => {
       await expect(updateCar(invalidCar)).rejects.toBeInstanceOf(ZodError);
       expect(dbCarUpdate).not.toHaveBeenCalled();
     });
+
+    it('throws validation error when id is null', async () => {
+      // Don't use builder since it replaces null with default value
+      const carWithNullId = {
+        id: null,
+        name: 'Valid Name',
+        createdAt: null,
+        updatedAt: null,
+      };
+
+      await expect(updateCar(carWithNullId)).rejects.toBeInstanceOf(ZodError);
+      expect(dbCarUpdate).not.toHaveBeenCalled();
+    });
   });
 });

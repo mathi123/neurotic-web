@@ -1,5 +1,5 @@
 import { Car } from '@/domain/car.model';
-import { getPrismaClient } from '../utils';
+import { getPrismaClient } from '@/storage/utils';
 import { carToDbCar, dbCarToDomain } from './car.mappers';
 
 export const dbCarCreate = async (car: Car): Promise<Car> => {
