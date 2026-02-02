@@ -203,12 +203,19 @@ describe('API Utils', () => {
       expect(response.status).toBe(404);
     });
 
-    it('should rethrow unexpected errors', async () => {
+    it('should return 500 response with structured error for unexpected errors', async () => {
       const mockReadResource = async () => {
         throw new Error('Unexpected error');
       };
 
-      await expect(tryReadResource(mockReadResource, '123')).rejects.toThrow('Unexpected error');
+      const response = await tryReadResource(mockReadResource, '123');
+      const responseData = await response.json();
+
+      expect(response.status).toBe(500);
+      expect(responseData).toEqual({
+        code: 'internal_error',
+        errors: [{ message: 'An unexpected error occurred' }],
+      });
     });
   });
 
@@ -242,12 +249,19 @@ describe('API Utils', () => {
       expect(response.status).toBe(404);
     });
 
-    it('should rethrow unexpected errors', async () => {
+    it('should return 500 response with structured error for unexpected errors', async () => {
       const mockDeleteResource = async () => {
         throw new Error('Unexpected error');
       };
 
-      await expect(tryDeleteResource(mockDeleteResource, '123')).rejects.toThrow('Unexpected error');
+      const response = await tryDeleteResource(mockDeleteResource, '123');
+      const responseData = await response.json();
+
+      expect(response.status).toBe(500);
+      expect(responseData).toEqual({
+        code: 'internal_error',
+        errors: [{ message: 'An unexpected error occurred' }],
+      });
     });
   });
 

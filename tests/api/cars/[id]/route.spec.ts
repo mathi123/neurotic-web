@@ -226,7 +226,7 @@ describe('API Route - DELETE /api/cars/[id]', () => {
     expect(deleteCar).toHaveBeenCalledWith(validId);
   });
 
-  it('rethrows unexpected errors from deleteCar', async () => {
+  it('returns 500 response with structured error for unexpected errors from deleteCar', async () => {
     vi.mocked(deleteCar).mockRejectedValueOnce(new Error('Database connection failed'));
 
     const request = {} as any;
@@ -234,7 +234,14 @@ describe('API Route - DELETE /api/cars/[id]', () => {
       params: Promise.resolve({ id: validId }),
     };
 
-    await expect(DELETE(request, route)).rejects.toThrow('Database connection failed');
+    const response = await DELETE(request, route);
+    const responseData = await response.json();
+
+    expect(response.status).toBe(500);
+    expect(responseData).toEqual({
+      code: 'internal_error',
+      errors: [{ message: 'An unexpected error occurred' }],
+    });
     expect(deleteCar).toHaveBeenCalledWith(validId);
   });
 });

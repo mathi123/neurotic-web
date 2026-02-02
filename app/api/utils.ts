@@ -74,7 +74,10 @@ export const tryReadResource = async <T>(readResource: (id: string) => Promise<T
     if (isPrismaNotFoundError(error) || error instanceof NotFoundError) {
       return notFoundResponse();
     }
-    throw error;
+    return Response.json(
+      { code: 'internal_error', errors: [{ message: 'An unexpected error occurred' }] },
+      { status: statusCodes.INTERNAL_SERVER_ERROR },
+    );
   }
 };
 
@@ -86,7 +89,10 @@ export const tryDeleteResource = async (deleteResource: (id: string) => Promise<
     if (isPrismaNotFoundError(error) || error instanceof NotFoundError) {
       return notFoundResponse();
     }
-    throw error;
+    return Response.json(
+      { code: 'internal_error', errors: [{ message: 'An unexpected error occurred' }] },
+      { status: statusCodes.INTERNAL_SERVER_ERROR },
+    );
   }
 };
 
