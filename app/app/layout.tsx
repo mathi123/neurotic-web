@@ -1,20 +1,20 @@
 'use client';
 
-import '@/app/globals.css';
+import { usePathname } from 'next/navigation';
+
 import { Providers } from './providers/providers';
 import { Toaster } from './components/ui/sonner';
-import { ThemeToggle } from './components/theme-toggle';
+import { Header } from './components/header';
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function AppLayout({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
+  const isAdminArea = pathname?.startsWith('/app/admin');
+
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body>
-        <Providers>
-          <ThemeToggle />
-          {children}
-          <Toaster />
-        </Providers>
-      </body>
-    </html>
+    <Providers>
+      {!isAdminArea && <Header />}
+      {children}
+      <Toaster />
+    </Providers>
   );
 }

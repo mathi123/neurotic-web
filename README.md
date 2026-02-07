@@ -13,12 +13,13 @@ To get started, you need [pnpm](https://pnpm.io/) and [docker](https://www.docke
 ```bash
 git clone https://github.com/mathi123/neurotic-web.git
 cd neurotic-web
+cp .env.example .env
 pnpm i
 pnpm db:start
 pnpm db:migrate
 ```
 
-And to start the dev server:
+Check the env file and to start the dev server run:
 
 ```bash
 pnpm dev
@@ -138,6 +139,8 @@ These models are automatically created when running the auth migration.
 
 ## Env Vars
 
+Copy `.env.example` to `.env` and fill in your values. The app loads `.env` locally; `.env` is gitignored and not used in CI/CD.
+
 | Variable              | Description                                            |
 | --------------------- | ------------------------------------------------------ |
 | DATABASE_URL          | The database url.                                      |
@@ -190,6 +193,11 @@ This log explains why packages were installed.
 | Auth setup              | better-auth                                                                                            |
 | Auth UI Setup           | @daveyplate/better-auth-ui                                                                             |
 | Toastr Component        | sonner                                                                                                 |
+| ShadCN Table/Select     | radix-ui                                                                                               |
+| Data Table              | @tanstack/react-table                                                                                  |
+| Sidebar Component       | (shadcn generated - uses radix-ui)                                                                     |
+| Navigation Menu/Avatar  | (shadcn generated - uses radix-ui)                                                                     |
+| Faceted Filter          | cmdk (shadcn command component)                                                                        |
 
 ## Known Issues
 

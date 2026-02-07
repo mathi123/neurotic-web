@@ -14,3 +14,19 @@ pnpm install
 # Run a package binary
 pnpx <command>
 ```
+
+## Documenting New Packages
+
+When installing new packages, **always** add an entry to the "Package Log" table in `README.md`. This helps maintain a clear record of why each dependency was added.
+
+Format:
+```markdown
+| Reason for package      | package-name                                                                                           |
+```
+
+Example:
+```markdown
+| Data Table              | @tanstack/react-table                                                                                  |
+```
+
+Note: ShadCN components are added via `pnpm dlx shadcn@latest add <component>`. Check `package.json` after installation to see if new packages were added and document them accordingly.

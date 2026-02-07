@@ -11,3 +11,6 @@ next-env.d.ts
 
 # vitest code coverage
 /coverage
+
+# Environment variables
+.env
