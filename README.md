@@ -19,7 +19,7 @@ pnpm db:start
 pnpm db:migrate
 ```
 
-And to start the dev server:
+Check the env file and to start the dev server run:
 
 ```bash
 pnpm dev
